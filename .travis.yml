@@ -15,8 +15,8 @@ install:
   - echo $HOME
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
       wget $MINICONDA_URL -O miniconda.exe;
-
       cmd "/C miniconda.exe /S /D=%HOMEPATH%/miniconda";
+      ls $HOME;
     else
       wget $MINICONDA_URL -O miniconda.sh;
       bash miniconda.sh -b -p $HOME/miniconda;
