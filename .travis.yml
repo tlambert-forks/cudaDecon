@@ -1,17 +1,24 @@
 language: cpp
 
-matrix:
+jobs:
   include:
-    os: 
-      - windows
-      - linux
+    - os: linux
+      env:
+        - MINICONDA_URL=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    - os: windows:
+      env:
+        - MINICONDA_URL=https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+        - VS=/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Auxiliary/Build/vcvars64.bat
 
-before_script:
-  - |
-    ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/
-    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      export CUDA_VERSION=10.1
-      echo $CUDA_VERSION
-    fi
+install:
+  - wget $MINICONDA_URL -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - source "$HOME/miniconda/etc/profile.d/conda.sh"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+
 script:
-  - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Auxiliary/Build/vcvars64.bat
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then $VS; fi
