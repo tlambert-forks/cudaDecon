@@ -1,0 +1,17 @@
+language: cpp
+
+matrix:
+  include:
+    os: 
+      - windows
+      - linux
+
+before_script:
+  - ls
+
+script:
+  - |
+    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
+      set "CUDA_VERSION=10.1"
+      echo %CUDA_VERSION%
+    fi

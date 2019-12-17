@@ -23,6 +23,7 @@ jobs:
         export CUDA_VERSION=10.1
         conda build conda-recipe
   
+  # using Appveyor instead
   # windows_cuda10-1:
 
   #   runs-on: windows-latest
