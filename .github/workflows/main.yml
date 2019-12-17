@@ -1,27 +1,27 @@
-name: build
+# name: build
 
-on: push
+# on: push
 
-jobs:
-  ubuntu_cuda10-1:
+# jobs:
+#   ubuntu_cuda10-1:
 
-    runs-on: ubuntu-18.04
+#     runs-on: ubuntu-18.04
 
-    steps:
-    - uses: actions/checkout@v1
-    - name: setup
-      run: |
-        conda config --add channels conda-forge
-        conda install -y conda-build
-        conda info
-        URL=http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
-        wget -q --show-progress --progress=bar:force:noscroll $URL -O cuda.run
-        sudo sh cuda.run --toolkit --silent
-        ls /usr/local
-    - name: conda-build
-      run: |
-        export CUDA_VERSION=10.1
-        conda build conda-recipe
+#     steps:
+#     - uses: actions/checkout@v1
+#     - name: setup
+#       run: |
+#         conda config --add channels conda-forge
+#         conda install -y conda-build
+#         conda info
+#         URL=http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
+#         wget -q --show-progress --progress=bar:force:noscroll $URL -O cuda.run
+#         sudo sh cuda.run --toolkit --silent
+#         ls /usr/local
+#     - name: conda-build
+#       run: |
+#         export CUDA_VERSION=10.1
+#         conda build conda-recipe
   
   # using Appveyor instead
   # windows_cuda10-1:
