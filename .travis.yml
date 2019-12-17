@@ -17,7 +17,7 @@ install:
       wget $MINICONDA_URL -O miniconda.exe;
       ls
       echo "hi"
-      cmd /c (./miniconda.exe /S /D=%HOMEPATH%/miniconda);
+      cmd "/C ./miniconda.exe /S /D=%HOMEPATH%/miniconda"
     else
       wget $MINICONDA_URL -O miniconda.sh;
       bash miniconda.sh -b -p $HOME/miniconda;
