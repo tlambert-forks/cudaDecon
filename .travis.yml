@@ -5,15 +5,17 @@ jobs:
     - os: linux
       env:
         - MINICONDA_URL=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        - CUDA_URL=http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run
     - os: windows
       env:
         - MINICONDA_URL=https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+        - CUDA_URL=http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_426.00_win10.exe
 
 install:
   - echo $HOME
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
       wget $MINICONDA_URL -O miniconda.exe;
-      miniconda.exe -b -p $HOME/miniconda;
+      ./miniconda.exe -b -p $HOME/miniconda;
     else
       wget $MINICONDA_URL -O miniconda.sh;
       bash miniconda.sh -b -p $HOME/miniconda;
@@ -21,9 +23,18 @@ install:
   - source "$HOME/miniconda/etc/profile.d/conda.sh"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
   - conda update -q conda
+  - conda install conda-build
   # Useful for debugging any issues with conda
   - conda info -a
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
+      wget $CUDA_URL -O cuda.exe;
+      ./cuda.exe -s;
+    else
+      wget $CUDA_URL -O cuda.run;
+      sudo sh cuda.run --toolkit -s;
+    fi
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
