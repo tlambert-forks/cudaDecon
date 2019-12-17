@@ -12,6 +12,9 @@ before_script:
 script:
   - |
     if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
-      set "CUDA_VERSION=10.1"
+      export CUDA_VERSION=10.1
       echo %CUDA_VERSION%
+      ls "C:\Program Files (x86)\"
+      "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
+    
     fi
