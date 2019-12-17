@@ -15,7 +15,7 @@ install:
   - echo $HOME
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then 
       wget $MINICONDA_URL -O miniconda.exe;
-      ./miniconda.exe -b -p $HOME/miniconda;
+      ./miniconda.exe /S /D $HOME/miniconda;
     else
       wget $MINICONDA_URL -O miniconda.sh;
       bash miniconda.sh -b -p $HOME/miniconda;
@@ -33,7 +33,7 @@ install:
       ./cuda.exe -s;
     else
       wget $CUDA_URL -O cuda.run;
-      sudo sh cuda.run --toolkit -s;
+      sudo sh cuda.run --toolkit --silent;
     fi
 
 script:
