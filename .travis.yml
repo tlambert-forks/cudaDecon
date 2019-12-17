@@ -7,14 +7,11 @@ matrix:
       - linux
 
 before_script:
-  - ls
-
-script:
   - |
-    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
+    ls /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/
+    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
       export CUDA_VERSION=10.1
-      echo %CUDA_VERSION%
-      ls "C:\Program Files (x86)\"
-      "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-    
+      echo $CUDA_VERSION
     fi
+script:
+  - /c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2017/BuildTools/VC/Auxiliary/Build/vcvars64.bat
